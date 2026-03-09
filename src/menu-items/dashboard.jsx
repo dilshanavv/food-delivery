@@ -1,12 +1,10 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
+import { DashboardOutlined, ShopOutlined } from '@ant-design/icons';
+import { AddOutlined } from '@mui/icons-material';
 
-// icons
 const icons = {
-  DashboardOutlined
+  DashboardOutlined,
+  ShopOutlined,AddOutlined
 };
-
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const dashboard = {
   id: 'group-dashboard',
@@ -20,7 +18,29 @@ const dashboard = {
       url: '/dashboard/default',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
+    },
+   {
+  id: 'store-management',
+  title: 'Store Management',
+  type: 'collapse',
+  icon: icons.ShopOutlined,
+  children: [
+    {
+      id: 'create-store',
+      title: 'Create Store',
+      type: 'item',
+      url: '/store/create',
+      icon: icons.AddOutlined
+    },
+    {
+     id: 'store-list',
+      title: 'Store List',
+      type: 'item',
+      url: '/store/list',
+      icon: icons.ShopOutlined
     }
+  ]
+}
   ]
 };
 
