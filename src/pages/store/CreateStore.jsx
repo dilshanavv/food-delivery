@@ -72,27 +72,19 @@ const [coverPreview, setCoverPreview] = useState(null);
   }, []);
 
   // ✅ Load Dropdowns
-  const loadDropdowns = async () => {
-    try {
-      const branchRes = await api.get("/branch-groups");
-      const storeTypeRes = await api.get("/store-types");
+ const loadDropdowns = async () => {
+  try {
+    const branchRes = await api.get("/branch-groups");
+    const storeTypeRes = await api.get("/store-types");
 
-      const branchData = Array.isArray(branchRes.data)
-        ? branchRes.data
-        : branchRes.data?.data || [];
+    // correct extraction
+    setBranchGroups(branchRes?.data?.data || []);
+    setStoreTypes(storeTypeRes?.data?.data || []);
 
-      const storeTypeData = Array.isArray(storeTypeRes.data)
-        ? storeTypeRes.data
-        : storeTypeRes.data?.data || [];
-
-      setBranchGroups(branchData);
-      setStoreTypes(storeTypeData);
-
-    } catch (error) {
-      console.log("Dropdown Load Error:", error);
-    }
-  };
-  
+  } catch (error) {
+    console.log("Dropdown Load Error:", error);
+  }
+};
 
   // ✅ Improved Handle Change
   const handleChange = (e) => {
@@ -185,7 +177,7 @@ const handleFileChange = (e) => {
       >
         <Grid container spacing={3}>
   
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid item xs={12} md={3}>
             <TextField
               select
               fullWidth
@@ -205,7 +197,7 @@ const handleFileChange = (e) => {
             </TextField>
           </Grid>
   
-          <Grid size={{ xs: 12, md: 3}}>
+         <Grid item xs={12} md={3}>
             <TextField
               select
               fullWidth
@@ -225,7 +217,7 @@ const handleFileChange = (e) => {
             </TextField>
           </Grid>
   
-           <Grid size={{ xs: 12, md: 3 }}>
+          <Grid item xs={12} md={3}>
             <TextField
               fullWidth
               label="Title English"
@@ -235,7 +227,7 @@ const handleFileChange = (e) => {
             />
           </Grid>
   
-           <Grid size={{ xs: 12, md: 3 }}>
+         <Grid item xs={12} md={3}>
             <TextField
               fullWidth
               label="Title Arabic"
@@ -263,7 +255,7 @@ const handleFileChange = (e) => {
         }
       >
         <Grid container spacing={3}>
-         <Grid size={{ xs: 12, md: 6 }}>
+        <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Primary Contact"
@@ -273,7 +265,7 @@ const handleFileChange = (e) => {
             />
           </Grid>
   
-           <Grid size={{ xs: 12, md: 6 }}>
+           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Secondary Contact"
@@ -300,7 +292,7 @@ const handleFileChange = (e) => {
         }
       >
         <Grid container spacing={3}>
-           <Grid size={{ xs: 12, md: 4 }}>
+           <Grid item xs={12} md={4}>
             <TextField
               type="number"
               fullWidth
@@ -311,7 +303,7 @@ const handleFileChange = (e) => {
             />
           </Grid>
   
-   <Grid size={{ xs: 12, md: 4}}>
+    <Grid item xs={12} md={4}>
             <TextField
               type="number"
               fullWidth
@@ -321,7 +313,7 @@ const handleFileChange = (e) => {
               onChange={handleChange}
             />
           </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid item xs={12} md={4}>
     <TextField
       fullWidth
       label="Address English"
@@ -331,7 +323,7 @@ const handleFileChange = (e) => {
     />
   </Grid>
   
-  <Grid size={{ xs: 12, md: 4 }}>
+   <Grid item xs={12} md={4}>
     <TextField
       fullWidth
       label="Address Arabic"
@@ -354,7 +346,7 @@ const handleFileChange = (e) => {
       }
     >
       <Grid container spacing={3}>
-         <Grid size={{ xs: 12, md: 6 }}>
+         <Grid item xs={12} md={6}>
           <TimePicker
             label="Opening Time"
             value={form.from_time}
@@ -365,7 +357,7 @@ const handleFileChange = (e) => {
           />
         </Grid>
   
- <Grid size={{ xs: 12, md: 6 }}>
+  <Grid item xs={12} md={6}>
           <TimePicker
             label="Closing Time"
             value={form.to_time}
@@ -391,7 +383,7 @@ const handleFileChange = (e) => {
       }
     >
       <Grid container spacing={3}>
-         <Grid size={{ xs: 12, md: 3 }}>
+         <Grid item xs={12} md={3}>
           <TextField
             type="number"
             fullWidth
@@ -402,7 +394,7 @@ const handleFileChange = (e) => {
           />
         </Grid>
   
-       <Grid size={{ xs: 12, md: 3 }}>
+        <Grid item xs={12} md={3}>
           <TextField
             type="number"
             fullWidth
@@ -413,7 +405,7 @@ const handleFileChange = (e) => {
           />
         </Grid>
   
-        <Grid size={{ xs: 12, md: 3 }}>
+         <Grid item xs={12} md={3}>
           <TextField
             type="number"
             fullWidth
@@ -424,7 +416,7 @@ const handleFileChange = (e) => {
           />
         </Grid>
   
-         <Grid size={{ xs: 12, md: 3}}>
+         <Grid item xs={12} md={3}>
           <TextField
             type="number"
             fullWidth
