@@ -74,12 +74,17 @@ const [coverPreview, setCoverPreview] = useState(null);
   // ✅ Load Dropdowns
  const loadDropdowns = async () => {
   try {
-    const branchRes = await api.get("/branch-groups");
-    const storeTypeRes = await api.get("/store-types");
 
-    // correct extraction
-    setBranchGroups(branchRes?.data?.data || []);
-    setStoreTypes(storeTypeRes?.data?.data || []);
+    const branchRes = await api.get("/store/branch-groups");
+    const storeTypeRes = await api.get("/store/store-types");
+
+    if (branchRes.data.status) {
+      setBranchGroups(branchRes.data.data);
+    }
+
+    if (storeTypeRes.data.status) {
+      setStoreTypes(storeTypeRes.data.data);
+    }
 
   } catch (error) {
     console.log("Dropdown Load Error:", error);
@@ -142,7 +147,7 @@ const handleFileChange = (e) => {
       }
     });
 
-    await api.post("/stores", formData, {
+    await api.post("/store", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
@@ -178,43 +183,45 @@ const handleFileChange = (e) => {
         <Grid container spacing={3}>
   
           <Grid item xs={12} md={3}>
-            <TextField
-              select
-              fullWidth
-              label="Branch Group"
-              name="branch_group_id"
-              value={form.branch_group_id || ""}
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>Select Branch</em>
-              </MenuItem>
-              {branchGroups.map((bg) => (
-                <MenuItem key={bg.branch_group_id} value={bg.branch_group_id}>
-                  {bg.franchise_name}
-                </MenuItem>
-              ))}
-            </TextField>
+           <TextField
+  select
+  fullWidth
+  label="Branch Group"
+  name="branch_group_id"
+  value={form.branch_group_id || ""}
+  onChange={handleChange}
+>
+  <MenuItem value="">
+    <em>Select Branch</em>
+  </MenuItem>
+
+ {branchGroups.map((bg) => (
+  <MenuItem key={bg.branch_group_id} value={bg.branch_group_id}>
+    {bg.franchise_name}
+  </MenuItem>
+))}
+</TextField>
           </Grid>
   
          <Grid item xs={12} md={3}>
             <TextField
-              select
-              fullWidth
-              label="Store Type"
-              name="store_type_id"
-              value={form.store_type_id || ""}
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>Select Store Type</em>
-              </MenuItem>
-              {storeTypes.map((st) => (
-                <MenuItem key={st.store_type_id} value={st.store_type_id}>
-                  {st.type_name}
-                </MenuItem>
-              ))}
-            </TextField>
+  select
+  fullWidth
+  label="Store Type"
+  name="store_type_id"
+  value={form.store_type_id || ""}
+  onChange={handleChange}
+>
+  <MenuItem value="">
+    <em>Select Store Type</em>
+  </MenuItem>
+
+ {storeTypes.map((st) => (
+  <MenuItem key={st.store_type_id} value={st.store_type_id}>
+    {st.type_name}
+  </MenuItem>
+))}
+</TextField>
           </Grid>
   
           <Grid item xs={12} md={3}>
